@@ -1,7 +1,10 @@
+use crate::board::AttackResponse;
+
 pub struct Ship {
     pub(crate) latitude: u32,
     pub(crate) longitude: u32,
     pub(crate) direction: Direction,
+    pub(crate) hits: u8,
 }
 
 pub enum Direction {
@@ -18,6 +21,46 @@ impl Ship {
             latitude,
             longitude,
             direction,
+            hits: 0,
+        }
+    }
+
+    pub fn hit(&mut self, latitude: u32, longitude: u32, length: u8) -> AttackResponse {
+        match self.direction {
+            Direction::Horizontal => {
+                if self.longitude != longitude {
+                    return AttackResponse::Miss;
+                };
+
+                let end = self.latitude + length as u32;
+                if !(self.latitude..=end).contains(&latitude) {
+                    return AttackResponse::Miss;
+                }
+
+                self.hits += 1;
+                if self.hits >= length { 
+                    return AttackResponse::Sink;
+                }
+
+                AttackResponse::Hit
+            }
+            Direction::Vertical => {
+                if self.longitude != longitude {
+                    return AttackResponse::Miss;
+                };
+
+                let end = self.latitude + length as u32;
+                if !(self.latitude..=end).contains(&latitude) {
+                    return AttackResponse::Miss;
+                }
+
+                self.hits += 1;
+                if self.hits >= length { 
+                    return AttackResponse::Sink;
+                }
+
+                AttackResponse::Hit
+            }
         }
     }
 }

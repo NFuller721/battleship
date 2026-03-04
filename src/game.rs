@@ -1,6 +1,6 @@
 use std::marker::PhantomData;
 
-use crate::board::Board;
+use crate::board::{AttackResponse, Board};
 
 pub struct Game<T> {
     attacker: Board,
@@ -22,23 +22,35 @@ impl<T> Game<T> {
 }
 
 impl Game<PlayerOne> {
-    pub fn attack(self, lat: u32, lon: u32) -> Game<PlayerTwo> {
+    pub fn attack(mut self, lat: u32, lon: u32) -> Game<PlayerTwo> {
         let response = self.defender.hit(lat, lon);
         match response {
-            AttackResponse::Hit(title) => println!("player one hit player two's {title} at ({lat}, {lon})");
-            AttackResponse::Sink(title) => println!("player one sunk player two's {title} at ({lat}, {lon})");
-            AttackResponse::Miss => println!("player one missed at ({lat, lon})");
+            AttackResponse::Hit => println!("player one hit player two's ship at ({lat}, {lon})"),
+            AttackResponse::Sink => println!("player one sunk player two's ship at ({lat}, {lon})"),
+            AttackResponse::Miss => println!("player one missed at ({lat}, {lon})"),
+        }
+
+        Game {
+            attacker: self.attacker,
+            defender: self.defender,
+            player_turn: PhantomData,
         }
     }
 }
 
 impl Game<PlayerTwo> {
-    pub fn attack(self, lat: u32, lon: u32) -> Game<PlayerOne> {
+    pub fn attack(mut self, lat: u32, lon: u32) -> Game<PlayerOne> {
         let response = self.attacker.hit(lat, lon);
         match response {
-            AttackResponse::Hit(title) => println!("player one hit player two's {title} at ({lat}, {lon})");
-            AttackResponse::Sink(title) => println!("player one sunk player two's {title} at ({lat}, {lon})");
-            AttackResponse::Miss => println!("player one missed at ({lat, lon})");
+            AttackResponse::Hit => println!("player one hit player two's ship at ({lat}, {lon})"),
+            AttackResponse::Sink => println!("player one sunk player two's ship at ({lat}, {lon})"),
+            AttackResponse::Miss => println!("player one missed at ({lat}, {lon})"),
+        }
+
+        Game {
+            attacker: self.attacker,
+            defender: self.defender,
+            player_turn: PhantomData,
         }
     }
 }

@@ -43,5 +43,5 @@ fn main() {
 2. Creating a `Game` structure X
 3. Making the `Ship` and `Direction` X
 4. Validate ship placement and builder X
-5. Designing the attack system
-6. Validate the attacks
+5. Designing the attack system X
+6. Validate the attacks X
