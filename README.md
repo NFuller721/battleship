@@ -1,7 +1,7 @@
 # Battleship!
 
 This is an attempt to complete a simple programming task in a short period of
-time. On the east coast the time of the first commit is [[ TIME ]]PM.
+time. On the east coast the time of the first commit is 7:46 PM.
 
 ## Rules
 
