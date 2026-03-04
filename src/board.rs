@@ -1,6 +1,6 @@
 use std::marker::PhantomData;
 
-use crate::ship::Ship;
+use crate::ship::{Direction, Ship};
 
 pub struct Board {
     carrier: Ship,
@@ -47,6 +47,20 @@ pub struct BoardBuilder<Carrier, Battleship, Cruiser, Submarine, Destroyer> {
 
 impl<Carrier, Battleship, Cruiser, Submarine, Destroyer> BoardBuilder<Carrier, Battleship, Cruiser, Submarine, Destroyer> {
     pub fn add_carrier(self, ship: Ship) -> BoardBuilder<CarrierSet, Battleship, Cruiser, Submarine, Destroyer> {
+        assert!(ship.latitude >= 1, "ship too far left");
+        assert!(ship.longitude >= 1, "ship too high");
+        
+        match ship.direction {
+            Direction::Vertical => {
+                assert!(ship.latitude <= 15, "ship too far right");
+                assert!(ship.longitude <= 11, "ship overflows the bottom");
+            },
+            Direction::Horizontal => {
+                assert!(ship.latitude <= 11, "ship overflows the right");
+                assert!(ship.longitude <= 15, "ship too far down");
+            },
+        };
+
         BoardBuilder {
             carrier: Some(ship),
             battleship: None,
@@ -58,6 +72,20 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer> BoardBuilder<Carrier, B
     }
 
     pub fn add_battleship(self, ship: Ship) -> BoardBuilder<Carrier, BattleshipSet, Cruiser, Submarine, Destroyer> {
+        assert!(ship.latitude >= 1, "ship too far left");
+        assert!(ship.longitude >= 1, "ship too high");
+        
+        match ship.direction {
+            Direction::Vertical => {
+                assert!(ship.latitude <= 15, "ship too far right");
+                assert!(ship.longitude <= 12, "ship overflows the bottom");
+            },
+            Direction::Horizontal => {
+                assert!(ship.latitude <= 12, "ship overflows the right");
+                assert!(ship.longitude <= 15, "ship too far down");
+            },
+        };
+
         BoardBuilder {
             carrier: None,
             battleship: Some(ship),
@@ -69,6 +97,20 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer> BoardBuilder<Carrier, B
     }
 
     pub fn add_cruiser(self, ship: Ship) -> BoardBuilder<Carrier, Battleship, CruiserSet, Submarine, Destroyer> {
+        assert!(ship.latitude >= 1, "ship too far left");
+        assert!(ship.longitude >= 1, "ship too high");
+        
+        match ship.direction {
+            Direction::Vertical => {
+                assert!(ship.latitude <= 15, "ship too far right");
+                assert!(ship.longitude <= 13, "ship overflows the bottom");
+            },
+            Direction::Horizontal => {
+                assert!(ship.latitude <= 12, "ship overflows the right");
+                assert!(ship.longitude <= 13, "ship too far down");
+            },
+        };
+
         BoardBuilder {
             carrier: None,
             battleship: None,
@@ -80,6 +122,20 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer> BoardBuilder<Carrier, B
     }
 
     pub fn add_submarine(self, ship: Ship) -> BoardBuilder<Carrier, Battleship, Cruiser, SubmarineSet, Destroyer> {
+        assert!(ship.latitude >= 1, "ship too far left");
+        assert!(ship.longitude >= 1, "ship too high");
+        
+        match ship.direction {
+            Direction::Vertical => {
+                assert!(ship.latitude <= 15, "ship too far right");
+                assert!(ship.longitude <= 13, "ship overflows the bottom");
+            },
+            Direction::Horizontal => {
+                assert!(ship.latitude <= 12, "ship overflows the right");
+                assert!(ship.longitude <= 13, "ship too far down");
+            },
+        };
+
         BoardBuilder {
             carrier: None,
             battleship: None,
@@ -91,6 +147,20 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer> BoardBuilder<Carrier, B
     }
 
     pub fn add_destroyer(self, ship: Ship) -> BoardBuilder<Carrier, Battleship, Cruiser, Submarine, DestroyerSet> {
+        assert!(ship.latitude >= 1, "ship too far left");
+        assert!(ship.longitude >= 1, "ship too high");
+        
+        match ship.direction {
+            Direction::Vertical => {
+                assert!(ship.latitude <= 15, "ship too far right");
+                assert!(ship.longitude <= 14, "ship overflows the bottom");
+            },
+            Direction::Horizontal => {
+                assert!(ship.latitude <= 14, "ship overflows the right");
+                assert!(ship.longitude <= 13, "ship too far down");
+            },
+        };
+
         BoardBuilder {
             carrier: None,
             battleship: None,
