@@ -41,10 +41,12 @@ impl Game<PlayerOne> {
 impl Game<PlayerTwo> {
     pub fn attack(mut self, lat: u32, lon: u32) -> Game<PlayerOne> {
         let response = self.attacker.hit(lat, lon);
+
+        // Had to change the text from "player one ..." to "player two ..."
         match response {
-            AttackResponse::Hit => println!("player one hit player two's ship at ({lat}, {lon})"),
-            AttackResponse::Sink => println!("player one sunk player two's ship at ({lat}, {lon})"),
-            AttackResponse::Miss => println!("player one missed at ({lat}, {lon})"),
+            AttackResponse::Hit => println!("player two hit player one's ship at ({lat}, {lon})"),
+            AttackResponse::Sink => println!("player two sunk player one's ship at ({lat}, {lon})"),
+            AttackResponse::Miss => println!("player two missed at ({lat}, {lon})"),
         }
 
         Game {

@@ -1,3 +1,6 @@
+//! Note: The builders changed because of the fact that the set the ships to None instead of the
+//! previous value.
+
 use std::marker::PhantomData;
 
 use crate::ship::{Direction, Ship};
@@ -66,13 +69,12 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer>
             }
         };
 
-
         BoardBuilder {
             carrier: Some(ship),
-            battleship: None,
-            cruiser: None,
-            submarine: None,
-            destroyer: None,
+            battleship: self.battleship,
+            cruiser: self.cruiser,
+            submarine: self.submarine,
+            destroyer: self.destroyer,
             _marker: PhantomData,
         }
     }
@@ -96,11 +98,11 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer>
         };
 
         BoardBuilder {
-            carrier: None,
+            carrier: self.carrier,
             battleship: Some(ship),
-            cruiser: None,
-            submarine: None,
-            destroyer: None,
+            cruiser: self.cruiser,
+            submarine: self.submarine,
+            destroyer: self.destroyer,
             _marker: PhantomData,
         }
     }
@@ -124,11 +126,11 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer>
         };
 
         BoardBuilder {
-            carrier: None,
-            battleship: None,
+            carrier: self.carrier,
+            battleship: self.battleship,
             cruiser: Some(ship),
-            submarine: None,
-            destroyer: None,
+            submarine: self.submarine,
+            destroyer: self.destroyer,
             _marker: PhantomData,
         }
     }
@@ -152,11 +154,11 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer>
         };
 
         BoardBuilder {
-            carrier: None,
-            battleship: None,
-            cruiser: None,
+            carrier: self.carrier,
+            battleship: self.battleship,
+            cruiser: self.cruiser,
             submarine: Some(ship),
-            destroyer: None,
+            destroyer: self.destroyer,
             _marker: PhantomData,
         }
     }
@@ -180,10 +182,10 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer>
         };
 
         BoardBuilder {
-            carrier: None,
-            battleship: None,
-            cruiser: None,
-            submarine: None,
+            carrier: self.carrier,
+            battleship: self.battleship,
+            cruiser: self.cruiser,
+            submarine: self.submarine,
             destroyer: Some(ship),
             _marker: PhantomData,
         }

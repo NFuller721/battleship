@@ -45,12 +45,14 @@ impl Ship {
                 AttackResponse::Hit
             }
             Direction::Vertical => {
-                if self.longitude != longitude {
+                // For this function I had to swap lat/lon because I forgot
+                if self.latitude != latitude {
                     return AttackResponse::Miss;
                 };
 
-                let end = self.latitude + length as u32;
-                if !(self.latitude..=end).contains(&latitude) {
+                let end = self.longitude + length as u32;
+                // The value that was checked against contains was wrongly latitude
+                if !(self.longitude..=end).contains(&longitude) {
                     return AttackResponse::Miss;
                 }
 
