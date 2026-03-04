@@ -33,3 +33,20 @@ redefine the game variable.
 If this were a longer project I would have wanted a better way to check against
 hits or ship stacking. Right now we just loop through all of the ships, but I
 imagine there are much better ways of handling this.
+
+# Response
+
+This is the response after running `cargo run --bin main`.
+
+```txt
+player one hit player two's ship at (2, 9)
+player two hit player one's ship at (2, 9)
+player one hit player two's ship at (3, 9)
+player two missed at (3, 9)
+player one hit player two's ship at (4, 9)
+player two missed at (4, 9)
+player one hit player two's ship at (5, 9)
+player two missed at (5, 9)
+player one sunk player two's ship at (6, 9)
+player two missed at (6, 9)
+```
