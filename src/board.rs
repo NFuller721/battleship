@@ -66,6 +66,7 @@ impl<Carrier, Battleship, Cruiser, Submarine, Destroyer>
             }
         };
 
+
         BoardBuilder {
             carrier: Some(ship),
             battleship: None,
@@ -225,10 +226,7 @@ impl Board {
 
         let response = self.hit_inner(latitude, longitude);
 
-        self.attacks.push(Attack {
-            latitude,
-            longitude,
-        });
+        self.attacks.push(Attack { latitude, longitude });
 
         response
     }
